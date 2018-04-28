@@ -10,52 +10,17 @@ this is a website that contains some of the project documentation and add more f
     include "links.php";
     ?>
    <title>SHB</title>
+    <link rel="icon" type="image/png" href="pics/logo2.png" sizes="16x16">
+
 </head>
 <body>
 <form method="post">
 
 <!-- ========================= NAVBAR ================================================-->
-<a name="#top"></a>
-<nav  class="navbar navbar-expand-lg fixed-top navbar-transparent" id="nav">
-    <div class="container">
-            <a class="navbar-brand" href="login.php" id="login" name="login">SHB Login <i class="fa fa-sign-in" aria-hidden="true" style="font-size:18px"></i></a>
-              <ul >
-                <!----><li >
-                    <a  class="navbar-brand"  href="" rel="tooltip"  >
-                        <i  class="fa fa-twitter " style="font-size:18px;" ></i>
-
-                    </a>
-                </li>
-                <!----><li>
-                    <a  class="navbar-brand"  href="" rel="tooltip" >
-                        <i  class="fa fa-facebook-square " style="font-size:18px;"></i>
-
-                    </a>
-                </li>
-                <!----><li >
-                    <a  class="navbar-brand"  href="" rel="tooltip" >
-                        <i  class="fa fa-instagram " style="font-size:18px;"></i>
-
-                    </a>
-                </li>
-                <!----><li>
-                    <a  class="navbar-brand"  href="" rel="tooltip" >
-                        <i  class="fa fa-github " style="font-size:18px;"></i>
-                                           </a>
-                </li>
-                <!----><li  >
-                    <a  class="navbar-brand"  href=""  >
-                        <i class="nc-icon nc-book-bookmark" style="font-size:18px;"></i>
-                        Documentation</a>
-                </li>
-
-                <!---->
-                <!---->
-            </ul>
-
-    </div>
-</nav>
-<!-- ======================================= Background of the FIRST page of the Index ================================ -->
+    <?php
+    include "header.php";
+    ?>
+    <!-- ======================================= Background of the FIRST page of the Index ================================ -->
 <div id="firstPage" class="page-header section-dark" style="background-image: url('pics/background2.jpg')">
     <div class="centerDiv" align="center">
         <h1 class="centered" style="font-size: 80px"> Smart Hospital Bed </h1>
@@ -109,7 +74,7 @@ this is a website that contains some of the project documentation and add more f
     <!--upButton--> <a href="#top" id="upButton"><img src="pics/up.png" style="height:70px;width: 70px" class="upButton"></a>
 </div>
     <!-- ======================================= Background of the fourth page of the Index ================================ -->
-<div class="page-header section-dark"style="background-color: white" >
+<div class="page-header section-dark" style="background-color: white" >
     <!--upButton--><a href="#top" id="upButton" ><img src="pics/up.png" style="height:70px;width: 70px" class="upButton"></a>
 </div>
 

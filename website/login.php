@@ -1,19 +1,28 @@
+<?php
+session_start();
+?>
 <html>
 <head>
     <?php
     include "links.php";
     ?>
 
-   <title>SHB</title>
+   <title>Login</title>
+    <link rel="icon" type="image/png" href="pics/logo2.png" sizes="16x16">
+    <script>
+        $(document).ready(function(){
+            $("#errorMsg").hide();
+        });
+    </script>
 </head>
 <body>
-<form method="post">
+<form method="get" ">
 
 <!-- ========================= NAVBAR ================================================-->
 <a name="#top"></a>
 <nav  class="navbar navbar-expand-lg fixed-top navbar-transparent" id="nav">
     <div class="container">
-            <a class="navbar-brand" href="" id="login" name="login">Create new Account <i class="fa fa-user-md" aria-hidden="true" style="font-size:25px"></i></a>
+            <a class="navbar-brand" href="newAccount.php" >Create new Account <i class="fa fa-user-md" aria-hidden="true" style="font-size:25px"></i></a>
               <ul >
                 <!----><li >
                     <a  class="navbar-brand"  href="" rel="tooltip"  >
@@ -39,7 +48,7 @@
                                            </a>
                 </li>
                 <!----><li  >
-                    <a  class="navbar-brand"  href=""  >
+                    <a  class="navbar-brand"  href="index.php"  >
                         <i class="nc-icon nc-book-bookmark" style="font-size:18px;"></i>
                         Documentation</a>
                 </li>
@@ -52,29 +61,30 @@
 </nav>
 <!-- ======================================= Background of the FIRST page of the Index ================================ -->
 <div id="firstPage" class="page-header section-dark" style="background-image: url('pics/background4.jpg')">
-    <div class="centerDiv" align="center">
-        <div class="loginDivBlack" align="center">
-         <h4>Welcome</h4><br>
-            <div _ngcontent-c12="" class="social-line text-center">
-                <a _ngcontent-c12="" class="btn btn-neutral btn-facebook btn-just-icon" href="#pablo">
-                    <i _ngcontent-c12="" class="fa fa-facebook-square"></i>
+    <div class="centerDiv" align="center" >
+        <div class="loginDivBlack" align="center" id="loginDivBlack" >
+            <br><br>
+         <h5>Welcome</h5>
+            <div  class="social-line text-center">
+                <a  class="btn btn-neutral btn-facebook btn-just-icon" href="#">
+                    <i  class="fa fa-facebook-square"></i>
                 </a>
-                <a _ngcontent-c12="" class="btn btn-neutral btn-google btn-just-icon" href="#pablo">
-                    <i _ngcontent-c12="" class="fa fa-google-plus"></i>
+                <a  class="btn btn-neutral btn-google btn-just-icon" href="#">
+                    <i  class="fa fa-google-plus"></i>
                 </a>
-                <a _ngcontent-c12="" class="btn btn-neutral btn-twitter btn-just-icon" href="#pablo">
-                    <i _ngcontent-c12="" class="fa fa-twitter"></i>
+                <a  class="btn btn-neutral btn-twitter btn-just-icon" href="#">
+                    <i  class="fa fa-twitter"></i>
                 </a>
             </div>
-            <h4 style="float: left;margin-left:33px">Username</h4><br>
-            <input type="text" id="username" placeholder="UserName" class="form-control" style="width:80%">
+            <h5 style="float: left;margin-left:33px">Email</h5><br>
+            <input type="text" id="email" name="email" placeholder="Email" class="form-control" style="width:80%;background: rgba(204, 204, 204, 0.0);color: white">
 
-            <h4 style="float: left;margin-left:33px;margin-top: 3px">Password</h4><br>
-            <input type="password" id="password" placeholder="Password" class="form-control" style="width:80%"><br>
-            <input type="submit" class="form-control" value="LOGIN" style="width:50%"><br>
-            <h4 style="margin-top: 1px">Forget your Password?</h4>
+            <h5 style="float: left;margin-left:33px;margin-top: 3px">Password</h5><br>
+            <input type="password" id="password" name="password" placeholder="Password" class="form-control" style="width:80%;background: rgba(204, 204, 204, 0.0);color: white"><br>
+            <input type="submit" class="form-control" value="LOGIN" id="loginBtn" name="loginBtn" style="width:40%;background: rgba(204, 204, 204, 0.0);color: white "><br>
+            <h5 style="margin-top: 1px">Forget your Password?</h5>
             <img src="pics/heartPulse.gif" style=" height: 10%;width: 30%;margin-left: 30px">
-
+            <h5 style="margin-top: 1px; color:red;" id="errorMsg">Wrong Email or Password</h5>
 
 
 
@@ -83,6 +93,39 @@
     <h6  class=" category-absolute ml-auto mr-auto">SHB Team @University of Petra</h6>
 </div>
 
-</form>
+
+    <?php
+
+    if(isset($_GET['loginBtn'])) {
+         $email = $_GET['email'];
+         $password = $_GET['password'];
+         include "BL.php";
+         $bl = new BL();
+         $result=$bl->login($email,$password);
+
+         if ($bl->login($email,$password)->num_rows){
+
+             while ($row = $result->fetch_assoc()) {
+
+                 $name = $row['Name'];
+                 $position = $row['Position'];
+                 $_SESSION['regName']=$name;
+                 $_SESSION['position']=$position;
+
+             }//while
+
+             echo "<script type='text/javascript'>  window.location='profile.php'; </script>";
+         }//if login
+        else{
+             //make div vibrate and display error msg
+             echo "<script src=\"js/vibrate.js\"></script>";
+
+        }
+
+    }//if is set
+    ?>
+
+ </form>
 </body>
 </html>
+
