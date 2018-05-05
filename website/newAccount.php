@@ -84,7 +84,7 @@
     <?php
     if(isset($_GET['signup'])) {
 
-        echo "<div class=\"dimScreen\" id=\"dimscreen\" align=\"center\">";
+
         $email = $_GET['email'];
         $password = $_GET['password'];
         $name = $_GET['Name'];
@@ -100,9 +100,6 @@
             echo "<script src=\"js/vibrate.js\"></script>";
 
         }//else
-
-
-
 
     }//if is set
     ?>

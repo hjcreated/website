@@ -2,18 +2,18 @@
 session_start();
 $name = $_SESSION['regName'];
 $position = $_SESSION['position'];
-  if(!isset($_SESSION['regName']))
-  {
-      header("location:login.php");
-  }
+$email=$_SESSION['email'];
+if(!isset($_SESSION['regName']))
+{
+    header("location:login.php");
+}
 
 ?>
 <html>
 <head>
     <?php
     include "links.php";
-
-      ?>
+    ?>
     <title>Profile</title>
     <link rel="icon" type="image/png" href="pics/logo2.png" sizes="16x16">
 
@@ -64,40 +64,46 @@ $position = $_SESSION['position'];
     </nav>
 
     <!-- ======================================= Background of the FIRST page of the Index ================================ -->
-    <div id="firstPage" class="page-header section-dark" style="background-color: white;">
+
+    <div id="firstPage" class="page-header section-dark" style=" background-color: white;">
 
         <div class="centerDiv" align="center">
-            <div  align="center" style="height: 100%; width:65%;margin-top: 5%;background: url('pics/user.png') no-repeat;  " >
-<br><br><br><br>
+            <div  align="center" style="height: 100%; width:65%;margin-top: 5%;background: url(<?php if($email=="Alaa@SmartHB.jo"){ echo 'pics/alaa.png';} else{echo 'pics/user.png';} ?>) no-repeat;  " >
+                <br><br><br><br>
                 <div class="container-fluid" style="float:left; margin-left:450px;" align="left">
-                <h3><?php echo $name; ?></h3>
-<br>
-                <h3><?php echo $position; ?></h3>
+                    <h3><?php echo $name; ?></h3>
+                    <br>
+                    <h3><?php echo $position; ?></h3>
                 </div>
-
-
-
-
             </div>
-                          </div>
+        </div>
         <div style="height: 100%;width: 20%;margin-left: -100px" >
             <br><br><br><br><br><br><br><br><br>
-            <button class="btn btn-outline-default btn-round" type="button" style="margin-left: -80px " >Patient List</button><br><br><br>
-            <button class="btn btn-outline-default btn-round" type="button" style="margin-left: -80px">Add Night-shift read</button><br><br><br>
-            <button class="btn btn-outline-default btn-round" type="button" style="margin-left: -80px">Add new Patient</button><br>
+            <button class="btn btn-outline-default btn-round" type="submit" style="margin-left: -80px " >Patient List</button><br><br><br>
+            <button class="btn btn-outline-default btn-round" type="submit" style="margin-left: -80px" id="nightReads" name="nightReads">Add Night-shift read</button><br><br><br>
+            <button class="btn btn-outline-default btn-round" type="submit" style="margin-left: -80px" id="newPatient" name="newPatient">Add new Patient</button><br>
         </div>
 
     </div>
     <?php
-
+    // ========= this function used to logout from the system ===========
     if(isset($_GET['logout'])) {
-        session_destroy();
+        session_destroy(); // destroy the created session
         echo "<script type='text/javascript'>  window.location='index.php'; </script>";
 
+    }//if is set
 
+
+    // ========= go to create new patient page ===========
+    if(isset($_GET['newPatient'])) {
+        echo "<script type='text/javascript'>  window.location='addNewPatient.php'; </script>";
+    }//if is set
+
+    // ========= go to create add night reads page ===========
+    if(isset($_GET['nightReads'])) {
+        echo "<script type='text/javascript'>  window.location='addNightReads.php'; </script>";
     }//if is set
     ?>
-
 
 
 </form>

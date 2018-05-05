@@ -97,23 +97,25 @@ session_start();
     <?php
 
     if(isset($_GET['loginBtn'])) {
-         $email = $_GET['email'];
-         $password = $_GET['password'];
-         include "BL.php";
-         $bl = new BL();
-         $result=$bl->login($email,$password);
+         $email = $_GET['email'];// hold the value of the email
+         $password = $_GET['password']; // hold the value of the password
+         include "BL.php"; // include bl to use the method login
+         $bl = new BL(); // new object from bl class
+         $result=$bl->login($email,$password); // call the login method
 
-         if ($bl->login($email,$password)->num_rows){
+         if ($bl->login($email,$password)->num_rows){ // if login succeed
 
              while ($row = $result->fetch_assoc()) {
 
-                 $name = $row['Name'];
-                 $position = $row['Position'];
-                 $_SESSION['regName']=$name;
-                 $_SESSION['position']=$position;
+                 $name = $row['Name']; // fitch the name from the database to be sed to the other page
+                 $position = $row['Position']; // fitch the position
+                 $Email = $row['Email']; // fitch the email
+                 $_SESSION['regName']=$name; // send the name to profile page
+                 $_SESSION['position']=$position; // send position to profile page
+                 $_SESSION['email']=$Email; // send the email
 
              }//while
-
+               /// redirect to profile page
              echo "<script type='text/javascript'>  window.location='profile.php'; </script>";
          }//if login
         else{
