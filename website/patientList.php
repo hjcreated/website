@@ -19,17 +19,9 @@ if(!isset($_SESSION['regName']))
     include "links.php";
     ?>
 
-    <title>NightReads</title>
+    <title>Patient List</title>
     <link rel="icon" type="image/png" href="pics/logo2.png" sizes="16x16">
-    <script>
-        $(document).ready(function(){
-            $("#errorMsg").hide();
-            $("#conMsg").hide();
-        });
-    </script>
-
-
-</head>
+    </head>
 <body>
 <form method="get">
 
@@ -91,50 +83,38 @@ if(!isset($_SESSION['regName']))
 <!-- ======================================= Background  ================================ -->
 <form method="get">
     <section id="form"><div id="firstPage" class="page-header section-dark" style="background-color: white;">
-            <div class="centerDiv" align="center">
-                <div class="loginDivBlack" align="center" id="loginDivBlack" style="height: 85%; width:40% ; margin-top:80px "><br><br><br>
-                    <h4>Night Shift Reads</h4><br>
-                    <img alt="Rounded Image" class="img-circle img-no-padding img-responsive" src="pics/medical_clipboard.png" style="width: 60px;height: 60px" ><br>
-                    <input type="text" id="id"  name="id"  placeholder="Patient's ID" class="form-control" style="text-align: center; width:80%;background: rgba(204, 204, 204, 0.0);color: white; margin-top: 5px;margin-bottom: 5px" required >
-                    <input type="text" id="med" name="med" placeholder="medicine" class="form-control" style=" text-align: center;width:80%;background: rgba(204, 204, 204, 0.0);color: white" required>
-                    <input type="text" id="dose"  name="dose"  placeholder="Dose" class="form-control" style="text-align: center; width:80%;background: rgba(204, 204, 204, 0.0);color: white; margin-top: 5px;margin-bottom: 5px" required>
-                    <input type="submit" class="form-control" value="Submit" id="submit" name="submit" style="text-align: center; width:50%;background: rgba(204, 204, 204, 0.0);color: white "><br>
-                    <h5 style="margin-top: 1px; color:red;" id="errorMsg">Check the ID & try again</h5> <!--Error msg to be displayed incase of error -->
-                    <h5 style="margin-top: 1px; color:blue;" id="conMsg">New reads have been added</h5><!-- Confirmation msg new record has been added -->
-                </div>
+            <div class="centerDiv" align="center" >
+                <br><br><br><br><br><br>
+                <table style="width:60%;  text-align: center; " class="table-inverse" >
+                    <thead >
+                        <tr ><td >ID</td><td>Name</td><td>Age</td><td>Sex</td><td>Illness</td><td></td></tr>
+                    </thead>
+
+                    <tr><td >201520334</td><td>Shaher</td><td>8</td><td>shemale</td><td>mentally</td></tr>
+
+                <?php
+                // =================== Load Patient list table on page load ===============
+                include "BL.php";
+                $bl = new BL();
+                $result=$bl->retrieveList();
+                    while ($row = $result->fetch_assoc()) {
+                        $id = $row['Id'];
+                        $name = $row['Name'];
+                        $Age=$row['Age'];
+                        $Sex=$row['Sex'];
+                        $illness=$row['ilness'];
+                          echo "<tr><td >".$id."</td><td>".$name."</td><td>".$Age."</td><td>".$Sex."</td><td>".$illness."</td><td><input type=\"button\" value=\"edit\"></td></tr>";
+
+
+
+
+                    }
+                ?>
+                </table>
             </div>
-            <h6  class=" category-absolute ml-auto mr-auto">SHB Team @University of Petra</h6>
         </div></section>
 
-    <?php
 
-    // =================== create new user when submit is clicked ===============
-    if(isset($_GET['submit'])) {
-
-
-        $id = $_GET['id']; // hold the name of the id
-        $med = $_GET['med']; // hold the value of the medicine
-        $dose = $_GET['dose']; // hold the value of the dose
-        include "BL.php"; // include bl class to use the methods inside of it
-        $bl = new BL(); // create new object of the class
-        if($bl->checkId($id)->num_rows){ // check the id of the patient first is exist
-           // add the night reads
-            $bl->addNightReads($id,$med,$dose);
-            //display confirm msg
-              echo "<script src=\"js/confirm.js\"></script>";
-        }//if true
-        else{
-            //make div vibrate and display error msg
-            echo "<script src=\"js/vibrate.js\"></script>";
-
-        }//else
-
-    }//if is set
-
-
-
-
-    ?>
 
 
 

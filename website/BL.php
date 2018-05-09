@@ -82,6 +82,19 @@ class BL
         return $this->dal->executeSelect($sql);
     }
 
+    /**
+     * this  method is used to retrieve all the patient in the patients database table
+     * @return mixed
+     */
+    public function retrieveList(){
+        $sql = "select * from patients";
+        return $this->dal->executeSelect($sql);
+    }
+
+
+
+
+
 
 
 }//end class
