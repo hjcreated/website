@@ -18,10 +18,9 @@ if(!isset($_SESSION['regName']))
     <?php
     include "links.php";
     ?>
-
     <title>Patient List</title>
     <link rel="icon" type="image/png" href="pics/logo2.png" sizes="16x16">
-    </head>
+</head>
 <body>
 <form method="get">
 
@@ -85,31 +84,34 @@ if(!isset($_SESSION['regName']))
     <section id="form"><div id="firstPage" class="page-header section-dark" style="background-color: white;">
             <div class="centerDiv" align="center" >
                 <br><br><br><br><br><br>
-                <table style="width:60%;  text-align: center; " class="table-inverse" >
-                    <thead >
-                        <tr ><td >ID</td><td>Name</td><td>Age</td><td>Sex</td><td>Illness</td><td></td></tr>
-                    </thead>
 
-                    <tr><td >201520334</td><td>Shaher</td><td>8</td><td>shemale</td><td>mentally</td></tr>
 
-                <?php
-                // =================== Load Patient list table on page load ===============
-                include "BL.php";
-                $bl = new BL();
-                $result=$bl->retrieveList();
+                <table style=" width:60%;"  >
+                    <tr><th>ID</th><th>Name</th><th>Age</th><th>Sex</th><th>Illness</th><th>Edit</th></tr>
+                    <?php
+
+                    // =================== Load Patient list table on page load ===============
+                    include "BL.php";
+                    $bl = new BL();
+                    $result=$bl->retrieveList();
                     while ($row = $result->fetch_assoc()) {
                         $id = $row['Id'];
                         $name = $row['Name'];
                         $Age=$row['Age'];
                         $Sex=$row['Sex'];
                         $illness=$row['ilness'];
-                          echo "<tr><td >".$id."</td><td>".$name."</td><td>".$Age."</td><td>".$Sex."</td><td>".$illness."</td><td><input type=\"button\" value=\"edit\"></td></tr>";
+                        echo "<tr><td >".$id."</td><td>".$name."</td><td>".$Age."</td><td>".$Sex."</td><td>".$illness."</td><td><button  id=\"Edit\" name=\"Edit\"  class=\"editButton\" value=\".$id.\"> Edit <i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button></td></tr>";
+                    }
 
-
+                    if(isset($_GET['Edit'])){
+                        $_SESSION['id']=$id;
 
 
                     }
-                ?>
+
+
+
+                    ?>
                 </table>
             </div>
         </div></section>

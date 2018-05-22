@@ -104,3 +104,18 @@ li {
     padding-top: 8px;
 }
 
+/*
+    ================== Table header ===================
+     */
+ td{
+     padding-top: 25px;
+
+    }
+
+ .editButton{
+     border-radius: 25px;
+     width: 80%;
+     background-color: #0b1011;
+     color: white;
+     border: hidden;
+ }

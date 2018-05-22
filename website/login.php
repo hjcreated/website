@@ -113,7 +113,7 @@ session_start();
                  $_SESSION['regName']=$name; // send the name to profile page
                  $_SESSION['position']=$position; // send position to profile page
                  $_SESSION['email']=$Email; // send the email
-
+                 $_SESSION['nurseID']=$row['id'];
              }//while
                /// redirect to profile page
              echo "<script type='text/javascript'>  window.location='profile.php'; </script>";

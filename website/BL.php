@@ -58,7 +58,9 @@ class BL
      */
     public function addPatient($id, $name, $age, $sex, $illness)
     {$sql= "insert into Patients VALUES(".$id.",'".$name."',".$age.",'".$sex."','".$illness."'); ";
-    return $this->dal->executeSelect($sql);
+     $this->dal->executeSelect($sql);
+     $sql2="CREATE TABLE `shb`.`".$id."` ( `medicine` VARCHAR(255), `does` VARCHAR(255), `bednum` INT(4), `nurseId` VARCHAR(20), `time` TIMESTAMP(4) DEFAULT CURRENT_TIMESTAMP(4) ) ENGINE = InnoDB;";
+    return $this->dal->executeSelect($sql2);
     }
 
     /**
@@ -66,10 +68,12 @@ class BL
      * @param $id
      * @param $medicine
      * @param $Dose
+     * @param $bednum
+     * @param $nurseID
      * @return mixed
      */
-    public function addNightReads($id, $medicine, $Dose){
-        $sql="insert into nightReads (id,medicine,dose) VALUES (".$id.",'".$medicine."','".$Dose."');";
+    public function addNightReads($id, $medicine, $Dose,$bednum,$nurseID){
+        $sql="INSERT INTO `".$id."` (`medicine`, `does`, `bednum`, `nurseId`) VALUES ('".$medicine."', '".$Dose."', '".$bednum."', '".$nurseID."')";
         return $this->dal->executeSelect($sql);
     }
 

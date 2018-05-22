@@ -8,6 +8,7 @@
  */
 session_start();
 $name = $_SESSION['regName'];
+$nurseID= $_SESSION['nurseID'];
 if(!isset($_SESSION['regName']))
 {
     header("location:login.php");
@@ -98,6 +99,7 @@ if(!isset($_SESSION['regName']))
                     <input type="text" id="id"  name="id"  placeholder="Patient's ID" class="form-control" style="text-align: center; width:80%;background: rgba(204, 204, 204, 0.0);color: white; margin-top: 5px;margin-bottom: 5px" required >
                     <input type="text" id="med" name="med" placeholder="medicine" class="form-control" style=" text-align: center;width:80%;background: rgba(204, 204, 204, 0.0);color: white" required>
                     <input type="text" id="dose"  name="dose"  placeholder="Dose" class="form-control" style="text-align: center; width:80%;background: rgba(204, 204, 204, 0.0);color: white; margin-top: 5px;margin-bottom: 5px" required>
+                    <input type="text" id="bednum"  name="bednum"  placeholder="Bed Number" class="form-control" style="text-align: center; width:80%;background: rgba(204, 204, 204, 0.0);color: white; margin-top: 5px;margin-bottom: 5px" required>
                     <input type="submit" class="form-control" value="Submit" id="submit" name="submit" style="text-align: center; width:50%;background: rgba(204, 204, 204, 0.0);color: white "><br>
                     <h5 style="margin-top: 1px; color:red;" id="errorMsg">Check the ID & try again</h5> <!--Error msg to be displayed incase of error -->
                     <h5 style="margin-top: 1px; color:blue;" id="conMsg">New reads have been added</h5><!-- Confirmation msg new record has been added -->
@@ -115,11 +117,12 @@ if(!isset($_SESSION['regName']))
         $id = $_GET['id']; // hold the name of the id
         $med = $_GET['med']; // hold the value of the medicine
         $dose = $_GET['dose']; // hold the value of the dose
+        $bednum = $_GET['bednum']; // hold the value of bed number
         include "BL.php"; // include bl class to use the methods inside of it
         $bl = new BL(); // create new object of the class
         if($bl->checkId($id)->num_rows){ // check the id of the patient first is exist
            // add the night reads
-            $bl->addNightReads($id,$med,$dose);
+            $bl->addNightReads($id,$med,$dose,$bednum,$nurseID);
             //display confirm msg
               echo "<script src=\"js/confirm.js\"></script>";
         }//if true
